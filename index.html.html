@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HOUEFA-DIGITAL | Toutes les balises HTML</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+            background: #090909;
+            color: #1a1a2e;
+            padding: 20px;
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #002B52 0%, #001a33 50%, #090909 100%);
+            color: white;
+            padding: 32px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(35,171,223,0.15), transparent);
+            border-radius: 50%;
+            animation: pulseGlow 6s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.2s ease;
+        }
+        .logo:hover { transform: scale(1.02); }
+
+        .logo-icon  img{
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #23ABDF, #002B52);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 20px rgba(35,171,223,0.3);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo-text span { background: linear-gradient(135deg, #23ABDF, #FFFFFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        .badge-version {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(35,171,223,0.4);
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            margin-bottom: 10px;
+        }
+        .sub {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .stats-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(35,171,223,0.18);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Barre de contrôle */
+        .controls {
+            background: #F8FAFE;
+            padding: 16px 28px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #e9edf2;
+        }
+
+        .search-box input {
+            width: 260px;
+            padding: 10px 18px;
+            border: 1px solid #dce3ec;
+            border-radius: 40px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .search-box input:focus {
+            border-color: #23ABDF;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(35,171,223,0.2);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .filter-btn {
+            background: white;
+            border: 1px solid #dce3ec;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1f2a3e;
+        }
+        .filter-btn:hover {
+            background: #23ABDF;
+            color: white;
+            border-color: #23ABDF;
+            transform: translateY(-2px);
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #23ABDF, #002B52);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(35,171,223,0.3);
+        }
+
+        /* CONTENU PRINCIPAL : TABLEAU */
+        .content {
+            padding: 32px 36px;
+        }
+
+        .category {
+            margin-bottom: 48px;
+            animation: slideUp 0.4s ease forwards;
+            opacity: 0;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category h2 {
+            font-size: 1.6rem;
+            margin-bottom: 18px;
+            padding-left: 16px;
+            border-left: 6px solid #23ABDF;
+            color: #002B52;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid #eef2f8;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 640px;
+        }
+
+        th {
+            background: #F1F5F9;
+            color: #002B52;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #23ABDF40;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eef2f8;
+            vertical-align: top;
+        }
+
+        tr {
+            transition: background 0.15s ease;
+        }
+        tr:hover {
+            background: #F9FCFE;
+        }
+
+        .tag-code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-weight: 700;
+            color: #23ABDF;
+            background: #EFF9FF;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .badge-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            background: #F1F5F9;
+            color: #1e293b;
+        }
+        .badge-type.bloc { background: #e0f2fe; color: #0369a1; }
+        .badge-type.inline { background: #dcfce7; color: #15803d; }
+        .badge-type.empty { background: #fed7aa; color: #9a3412; }
+        .badge-type.meta { background: #e9d5ff; color: #6b21a5; }
+        .badge-type.interactive { background: #fce7f3; color: #be185d; }
+        .badge-type.section { background: #ccfbf1; color: #0f766e; }
+
+        .role-desc {
+            line-height: 1.45;
+            color: #2c3e50;
+        }
+
+        /* Footer */
+        .footer {
+            background: #F8FAFE;
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid #e9edf2;
+            font-size: 0.8rem;
+            color: #4a5568;
+        }
+        .footer strong { color: #23ABDF; }
+
+        @media (max-width: 780px) {
+            body { padding: 12px; }
+            .content { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .logo-text { font-size: 22px; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .search-box input { width: 100%; }
+            .filter-group { justify-content: center; }
+            th, td { padding: 10px 12px; font-size: 0.8rem; }
+            .category h2 { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 480px) {
+            .logo-area { flex-direction: column; align-items: start; }
+            .badge-version { align-self: flex-start; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .controls, .badge-version, .footer { display: none; }
+            .container { box-shadow: none; }
+            tr:hover { background: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <div class="logo">
+                <div class="logo-icon"><img src="logo.jpeg" alt="HOUEFA-DIGITAL"></div>
+                <div class="logo-text"><span>HOUEFA</span>-DIGITAL</div>
+            </div>
+            <div class="badge-version"> Référence HTML5 </div>
+        </div>
+        <h1> Encyclopédie complète des balises HTML</h1>
+        <div class="sub">Balises standards WHATWG / W3C · Types · Rôles techniques détaillés</div>
+        <div class="stats-badge" id="statsDisplay">
+            📊 <span id="counterValue">0</span> / <span id="totalValue">0</span> balises affichées
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder=" Rechercher une balise, type ou rôle...">
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all"> Toutes</button>
+            <button class="filter-btn" data-filter="block"> Bloc</button>
+            <button class="filter-btn" data-filter="inline"> Inline</button>
+            <button class="filter-btn" data-filter="empty"> Vide</button>
+            <button class="filter-btn" data-filter="meta"> Métadonnées</button>
+            <button class="filter-btn" data-filter="interactive"> Interactif</button>
+            <button class="filter-btn" data-filter="section"> Section</button>
+        </div>
+    </div>
+
+    <div class="content" id="contentArea">
+        <!-- Le tableau dynamique s'affiche ici -->
+        <div style="text-align:center; padding: 40px;"> Chargement des balises...</div>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 <strong>HOUEFA-DIGITAL</strong></p>
+        <p>⭐ Plus de 100 balises HTML officielles — Tableau complet, recherche et filtres inclus</p>
+    </div>
+</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // BASE DE DONNÉES (131 balises avec rôles enrichis)
+    // ------------------------------------------------------------------
+    const allTags = [
+        { tag: "<!DOCTYPE>", type: "meta", category: " Structure document", role: "Déclare la version HTML5 au navigateur. Active le mode standard." },
+        { tag: "<html>", type: "block", category: " Structure document", role: "Élément racine du document. Contient tout le code HTML." },
+        { tag: "<head>", type: "meta", category: "🏗️Structure document", role: "Regroupe les métadonnées (titre, CSS, scripts)." },
+        { tag: "<title>", type: "meta", category: " Structure document", role: "Titre visible dans l'onglet du navigateur. Essentiel pour le référencement." },
+        { tag: "<body>", type: "block", category: " Structure document", role: "Contient tout le contenu visible : textes, images, médias." },
+        { tag: "<meta>", type: "empty", category: " Métadonnées", role: "Métadonnées : charset, viewport, description SEO." },
+        { tag: "<link>", type: "empty", category: " Métadonnées", role: "Lien externe (CSS, favicon, préchargement)." },
+        { tag: "<style>", type: "meta", category: " Métadonnées", role: "Styles CSS internes au document." },
+        { tag: "<script>", type: "meta", category: " Métadonnées", role: "Code JavaScript (interactivité, dynamisme)." },
+        { tag: "<noscript>", type: "block", category: " Métadonnées", role: "Contenu alternatif si JS est désactivé." },
+        { tag: "<base>", type: "empty", category: " Métadonnées", role: "URL de base pour tous les liens relatifs." },
+        { tag: "<template>", type: "meta", category: " Métadonnées", role: "Fragment HTML inactif, clonable via JavaScript." },
+        { tag: "<header>", type: "section", category: " Sectionnement", role: "En-tête de section ou de page (logo, navigation)." },
+        { tag: "<nav>", type: "section", category: " Sectionnement", role: "Zone de navigation principale (menus)." },
+        { tag: "<main>", type: "section", category: " Sectionnement", role: "Contenu principal unique de la page." },
+        { tag: "<section>", type: "section", category: " Sectionnement", role: "Regroupe du contenu thématique cohérent." },
+        { tag: "<article>", type: "section", category: " Sectionnement", role: "Contenu autonome (article, post, commentaire)." },
+        { tag: "<aside>", type: "section", category: " Sectionnement", role: "Contenu annexe : sidebar, publicités, notes." },
+        { tag: "<footer>", type: "section", category: " Sectionnement", role: "Pied de page (copyright, liens légaux)." },
+        { tag: "<address>", type: "block", category: " Sectionnement", role: "Informations de contact de l'auteur." },
+        { tag: "<div>", type: "block", category: " Groupes de contenu", role: "Conteneur générique (mise en page CSS)." },
+        { tag: "<p>", type: "block", category: " Groupes de contenu", role: "Paragraphe de texte." },
+        { tag: "<hr>", type: "empty", category: " Groupes de contenu", role: "Séparateur thématique (ligne horizontale)." },
+        { tag: "<br>", type: "empty", category: " Groupes de contenu", role: "Saut de ligne simple." },
+        { tag: "<pre>", type: "block", category: " Groupes de contenu", role: "Texte préformaté (respecte espaces / retours ligne)." },
+        { tag: "<blockquote>", type: "block", category: " Groupes de contenu", role: "Citation longue (avec indentation)." },
+        { tag: "<figure>", type: "block", category: " Groupes de contenu", role: "Contenu illustratif (image, diagramme)." },
+        { tag: "<figcaption>", type: "block", category: " Groupes de contenu", role: "Légende pour <figure>." },
+        { tag: "<h1>", type: "block", category: " Textes sémantiques", role: "Titre principal (un seul par page)." },
+        { tag: "<h2>", type: "block", category: " Textes sémantiques", role: "Sous-titre important." },
+        { tag: "<h3>", type: "block", category: " Textes sémantiques", role: "Niveau 3 de titre." },
+        { tag: "<h4>", type: "block", category: " Textes sémantiques", role: "Niveau 4." },
+        { tag: "<h5>", type: "block", category: " Textes sémantiques", role: "Niveau 5." },
+        { tag: "<h6>", type: "block", category: " Textes sémantiques", role: "Niveau 6 (moins important)." },
+        { tag: "<strong>", type: "inline", category: " Textes sémantiques", role: "Importance forte (gras sémantique)." },
+        { tag: "<em>", type: "inline", category: " Textes sémantiques", role: "Emphase (italique sémantique)." },
+        { tag: "<mark>", type: "inline", category: " Textes sémantiques", role: "Texte surligné (référence)." },
+        { tag: "<small>", type: "inline", category: " Textes sémantiques", role: "Petits caractères (mentions légales)." },
+        { tag: "<span>", type: "inline", category: " Textes sémantiques", role: "Conteneur inline pour style / script." },
+        { tag: "<a>", type: "inline", category: " Textes sémantiques", role: "Lien hypertexte (navigation)." },
+        { tag: "<abbr>", type: "inline", category: " Textes sémantiques", role: "Abréviation (tooltip)." },
+        { tag: "<b>", type: "inline", category: " Textes sémantiques", role: "Gras visuel (sans importance)." },
+        { tag: "<i>", type: "inline", category: " Textes sémantiques", role: "Italique (voix alternative)." },
+        { tag: "<u>", type: "inline", category: " Textes sémantiques", role: "Souligné (annotations)." },
+        { tag: "<s>", type: "inline", category: " Textes sémantiques", role: "Texte barré (non pertinent)." },
+        { tag: "<del>", type: "inline", category: " Textes sémantiques", role: "Texte supprimé (version antérieure)." },
+        { tag: "<ins>", type: "inline", category: " Textes sémantiques", role: "Texte inséré (ajout récent)." },
+        { tag: "<sub>", type: "inline", category: " Textes sémantiques", role: "Indice (ex: H₂O)." },
+        { tag: "<sup>", type: "inline", category: " Textes sémantiques", role: "Exposant (ex: x²)." },
+        { tag: "<code>", type: "inline", category: " Textes sémantiques", role: "Code informatique (police monospace)." },
+        { tag: "<kbd>", type: "inline", category: " Textes sémantiques", role: "Touche clavier (Ctrl+C)." },
+        { tag: "<samp>", type: "inline", category: " Textes sémantiques", role: "Sortie d'exemple (résultat)." },
+        { tag: "<var>", type: "inline", category: " Textes sémantiques", role: "Variable mathématique." },
+        { tag: "<time>", type: "inline", category: " Textes sémantiques", role: "Date/heure (format lisible)." },
+        { tag: "<data>", type: "inline", category: " Textes sémantiques", role: "Lien contenu ↔ valeur machine." },
+        { tag: "<dfn>", type: "inline", category: " Textes sémantiques", role: "Définition d'un terme." },
+        { tag: "<cite>", type: "inline", category: " Textes sémantiques", role: "Titre d'œuvre (citation)." },
+        { tag: "<q>", type: "inline", category: " Textes sémantiques", role: "Citation courte (guillemets)." },
+        { tag: "<ruby>", type: "inline", category: " Textes sémantiques", role: "Annotations ruby." },
+        { tag: "<rt>", type: "inline", category: " Textes sémantiques", role: "Prononciation ruby." },
+        { tag: "<rp>", type: "inline", category: " Textes sémantiques", role: "Parenthèses fallback ruby." },
+        { tag: "<bdi>", type: "inline", category: " Textes sémantiques", role: "Isolation de direction de texte." },
+        { tag: "<bdo>", type: "inline", category: " Textes sémantiques", role: "Override de direction LTR/RTL." },
+        { tag: "<wbr>", type: "empty", category: " Textes sémantiques", role: "Opportunité de coupure de ligne." },
+        { tag: "<ul>", type: "block", category: " Listes", role: "Liste non ordonnée (puces)." },
+        { tag: "<ol>", type: "block", category: " Listes", role: "Liste ordonnée (numéros)." },
+        { tag: "<li>", type: "block", category: " Listes", role: "Élément de liste." },
+        { tag: "<dl>", type: "block", category: " Listes", role: "Liste de définitions." },
+        { tag: "<dt>", type: "block", category: " Listes", role: "Terme à définir." },
+        { tag: "<dd>", type: "block", category: " Listes", role: "Description du terme." },
+        { tag: "<menu>", type: "block", category: " Listes", role: "Menu de commandes." },
+        { tag: "<table>", type: "block", category: " Tableaux", role: "Tableau de données." },
+        { tag: "<thead>", type: "block", category: " Tableaux", role: "Groupe d'en-tête." },
+        { tag: "<tbody>", type: "block", category: " Tableaux", role: "Corps du tableau." },
+        { tag: "<tfoot>", type: "block", category: " Tableaux", role: "Pied du tableau." },
+        { tag: "<tr>", type: "block", category: " Tableaux", role: "Ligne de tableau." },
+        { tag: "<th>", type: "block", category: " Tableaux", role: "Cellule d'en-tête." },
+        { tag: "<td>", type: "block", category: " Tableaux", role: "Cellule de données." },
+        { tag: "<caption>", type: "block", category: " Tableaux", role: "Légende / titre du tableau." },
+        { tag: "<colgroup>", type: "block", category: " Tableaux", role: "Groupe de colonnes." },
+        { tag: "<col>", type: "empty", category: " Tableaux", role: "Définition de colonne." },
+        { tag: "<form>", type: "interactive", category: " Formulaires", role: "Formulaire d'envoi de données." },
+        { tag: "<input>", type: "interactive", category: " Formulaires", role: "Champ de saisie (text, email, etc.)." },
+        { tag: "<button>", type: "interactive", category: " Formulaires", role: "Bouton cliquable." },
+        { tag: "<select>", type: "interactive", category: " Formulaires", role: "Menu déroulant." },
+        { tag: "<option>", type: "interactive", category: " Formulaires", role: "Option d'un select." },
+        { tag: "<optgroup>", type: "interactive", category: " Formulaires", role: "Groupe d'options." },
+        { tag: "<textarea>", type: "interactive", category: " Formulaires", role: "Zone texte multiligne." },
+        { tag: "<label>", type: "interactive", category: " Formulaires", role: "Étiquette pour champ." },
+        { tag: "<fieldset>", type: "interactive", category: " Formulaires", role: "Regroupe des champs." },
+        { tag: "<legend>", type: "interactive", category: " Formulaires", role: "Titre du fieldset." },
+        { tag: "<datalist>", type: "interactive", category: " Formulaires", role: "Autocomplétion pour input." },
+        { tag: "<output>", type: "interactive", category: " Formulaires", role: "Résultat de calcul." },
+        { tag: "<progress>", type: "interactive", category: " Formulaires", role: "Barre de progression." },
+        { tag: "<meter>", type: "interactive", category: " Formulaires", role: "Jauge de mesure." },
+        { tag: "<img>", type: "inline", category: " Médias", role: "Image (src + alt requis)." },
+        { tag: "<picture>", type: "inline", category: " Médias", role: "Images responsives." },
+        { tag: "<source>", type: "empty", category: " Médias", role: "Source alternative." },
+        { tag: "<video>", type: "inline", category: " Médias", role: "Vidéo avec contrôles." },
+        { tag: "<audio>", type: "inline", category: " Médias", role: "Fichier audio." },
+        { tag: "<track>", type: "empty", category: " Médias", role: "Sous-titres (WebVTT)." },
+        { tag: "<canvas>", type: "inline", category: " Médias", role: "Dessin dynamique (JS)." },
+        { tag: "<svg>", type: "inline", category: " Médias", role: "Graphiques vectoriels." },
+        { tag: "<iframe>", type: "inline", category: " Médias", role: "Intègre une page externe." },
+        { tag: "<embed>", type: "inline", category: " Médias", role: "Contenu externe (PDF, plugin)." },
+        { tag: "<object>", type: "inline", category: " Médias", role: "Objet multimédia." },
+        { tag: "<param>", type: "empty", category: " Médias", role: "Paramètre object." },
+        { tag: "<map>", type: "inline", category: " Médias", role: "Image cliquable (zones)." },
+        { tag: "<area>", type: "empty", category: " Médias", role: "Zone cliquable dans map." },
+        { tag: "<details>", type: "interactive", category: " Interactions avancées", role: "Accordéon (déroulant)." },
+        { tag: "<summary>", type: "interactive", category: " Interactions avancées", role: "Résumé visible pour details." },
+        { tag: "<dialog>", type: "interactive", category: " Interactions avancées", role: "Fenêtre modale." },
+        { tag: "<slot>", type: "inline", category: " Templates", role: "Emplacement Shadow DOM." }
+    ];
+
+    const categoryOrder = [
+        " Structure document", " Métadonnées", " Sectionnement", " Groupes de contenu",
+        " Textes sémantiques", " Listes", " Tableaux", " Formulaires",
+        " Médias", " Interactions avancées", " Templates"
+    ];
+
+    const totalCount = allTags.length;
+    document.getElementById('totalValue').innerText = totalCount;
+
+    // Helper pour le badge type
+    function getBadgeClass(type) {
+        const map = {
+            'block': 'bloc', 'inline': 'inline', 'empty': 'empty',
+            'meta': 'meta', 'interactive': 'interactive', 'section': 'section'
+        };
+        return `badge-type ${map[type] || ''}`;
+    }
+
+    function getTypeLabel(type) {
+        const labels = {
+            'block': ' BLOC', 'inline': ' INLINE', 'empty': ' VIDE',
+            'meta': ' MÉTA', 'interactive': ' INTERACTIF', 'section': ' SECTION'
+        };
+        return labels[type] || ' STANDARD';
+    }
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function renderTable() {
+        let filtered = [...allTags];
+        if (currentFilter !== 'all') filtered = filtered.filter(t => t.type === currentFilter);
+        if (currentSearch.trim()) {
+            const s = currentSearch.toLowerCase();
+            filtered = filtered.filter(t => t.tag.toLowerCase().includes(s) || t.role.toLowerCase().includes(s) || t.type.includes(s));
+        }
+
+        // Regroupement par catégorie
+        const groups = {};
+        filtered.forEach(tag => { if (!groups[tag.category]) groups[tag.category] = []; groups[tag.category].push(tag); });
+
+        let html = '';
+        for (let cat of categoryOrder) {
+            if (groups[cat] && groups[cat].length) {
+                html += `<div class="category">`;
+                html += `<h2>${cat}</h2>`;
+                html += `<div class="table-wrapper"><table>`;
+                html += `<thead><tr><th>Balise HTML</th><th>Type</th><th>Rôle / fonction</th></tr></thead><tbody>`;
+                groups[cat].forEach(t => {
+                    html += `<tr>
+                        <td><span class="tag-code">${escapeHtml(t.tag)}</span></td>
+                        <td><span class="${getBadgeClass(t.type)}">${getTypeLabel(t.type)}</span></td>
+                        <td class="role-desc">${escapeHtml(t.role)}</td>
+                    </tr>`;
+                });
+                html += `</tbody></table></div></div>`;
+            }
+        }
+        if (filtered.length === 0) {
+            html = `<div style="text-align:center;padding:60px 20px;"><h3 style="color:#23ABDF;">🔍 Aucune balise trouvée</h3><p>Essayez une autre recherche ou filtre</p></div>`;
+        }
+        document.getElementById('contentArea').innerHTML = html;
+        document.getElementById('counterValue').innerText = filtered.length;
+
+        // Animation douce sur les catégories
+        const cats = document.querySelectorAll('.category');
+        cats.forEach((c, i) => { c.style.animationDelay = `${i * 0.05}s`; });
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Événements
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => { currentSearch = e.target.value; renderTable(); });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.dataset.filter;
+            renderTable();
+        });
+    });
+
+    renderTable();
+</script>
+</body>
+</html>
